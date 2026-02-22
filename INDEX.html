@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K2 Střechy</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#fff;
+    color:#111;
+    overflow-x:hidden;
+}
+/* NAV */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    background:rgba(0,0,0,0.95);
+    z-index:1000;
+    padding:10px 30px;
+}
+.nav-container{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    max-width:1300px;
+    margin:0 auto;
+}
+.nav-left img{
+    height:50px;
+}
+.nav-right{
+    display:flex;
+    gap:25px;
+    margin-left:20px;
+}
+.nav-right a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:15px;
+}
+.nav-right i{
+    margin-right:6px;
+    color:#0066ff; /* změna oranžové na modrou */
+}
+
+/* HEADER */
+header{
+    min-height:650px;
+    background:url('https://i.imgur.com/akYhOlM.jpeg') center/cover no-repeat;
+    display:flex;
+    align-items:center;
+    position:relative;
+    color:#fff;
+    margin-top:70px;
+    padding:0 40px;
+}
+header::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.55);
+}
+.header-content{
+    position:relative;
+    max-width:700px;
+    text-align:left;
+}
+header h1{
+    font-size:42px;
+    margin-bottom:20px;
+    line-height:1.2;
+}
+header p{
+    font-size:18px;
+    line-height:1.6;
+}
+
+/* ÚVODNÍ SEKCE */
+.intro-section{
+    background:#fff;
+    max-width:1200px;
+    margin:50px auto;
+    display:flex;
+    flex-wrap:wrap;
+    padding:60px 30px;
+    gap:40px;
+}
+.intro-text{
+    flex:1 1 500px;
+}
+.intro-text h2{
+    font-size:34px;
+    margin-bottom:20px;
+    position:relative;
+}
+.intro-text h2::after{
+    content:"";
+    display:block;
+    width:60px;
+    height:4px;
+    background:#0066ff;
+    margin-top:10px;
+    border-radius:2px;
+}
+.intro-text p{
+    font-size:17px;
+    line-height:1.7;
+    margin-bottom:15px;
+}
+.intro-image{
+    flex:1 1 400px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.intro-image img{
+    max-width:100%;
+    border-radius:12px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+}
+
+/* SEKCE S TEXTEM + BUBLINAMI */
+.about-section{
+    max-width:1200px;
+    margin:0 auto;
+    padding:60px 30px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:40px;
+    align-items:flex-start;
+}
+.section-text{
+    flex:1 1 500px;
+}
+.section-text h2{
+    font-size:32px;
+    margin-bottom:20px;
+    position:relative;
+}
+.section-text h2::after{
+    content:"";
+    display:block;
+    width:60px;
+    height:4px;
+    background:#0066ff;
+    margin-top:10px;
+    border-radius:2px;
+}
+.section-text p, .section-text ul{
+    font-size:16px;
+    line-height:1.7;
+    margin-bottom:15px;
+}
+.section-text ul{
+    margin-left:20px;
+}
+.section-text li{
+    margin-bottom:8px;
+}
+
+/* BUBLINY */
+.section-bubble{
+    flex:1 1 350px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    justify-content:flex-start;
+}
+.circle{
+    width:230px;
+    height:230px;
+    border-radius:14px;
+    background-size:cover;
+    background-position:center;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    transition:0.4s ease;
+    box-shadow:0 25px 60px rgba(0,0,0,0.25);
+}
+.circle:hover{
+    transform:translateY(-10px);
+}
+.circle-title{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:18px;
+    background:rgba(0,0,0,0.6);
+    color:#fff;
+    font-weight:bold;
+    backdrop-filter:blur(6px);
+    text-align:center;
+}
+.circle-gallery{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    padding:25px;
+    opacity:0;
+    visibility:hidden;
+    transition:0.4s ease;
+    flex-wrap:wrap;
+}
+.circle.open .circle-gallery{
+    opacity:1;
+    visibility:visible;
+}
+.circle-gallery img{
+    width:90px;
+    height:90px;
+    object-fit:cover;
+    border-radius:12px;
+    transition:0.3s;
+    cursor:pointer;
+}
+.circle-gallery img:hover{
+    transform:scale(1.15);
+}
+
+/* LIGHTBOX */
+#lightbox{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.85);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+#lightbox img{
+    max-width:90%;
+    max-height:90%;
+    border-radius:12px;
+}
+#lightbox span.close{
+    position:absolute;
+    top:20px;
+    right:30px;
+    font-size:50px;
+    color:#fff;
+    cursor:pointer;
+}
+#lightbox .nav{
+    position:absolute;
+    font-size:50px;
+    color:#fff;
+    cursor:pointer;
+    user-select:none;
+    padding:10px;
+}
+#lightbox .prev{
+    left:10px;
+    top:50%;
+    transform:translateY(-50%);
+}
+#lightbox .next{
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+}
+
+/* FOOTER */
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #111;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    gap: 15px;
+}
+
+footer .footer-text p {
+    margin: 5px 0;
+}
+
+footer .footer-text a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+footer .footer-text a:hover {
+    color: #0066ff;
+}
+
+footer .footer-logo img {
+    height: 140px; /* proporční k bublinám */
+}
+
+footer .slogan {
+    color: #0066ff;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* Responzivní pro větší obrazovky – horizontálně */
+@media(min-width:901px){
+    footer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        padding: 50px 40px;
+    }
+}
+
+/* RESPONSIVE pro bubliny */
+@media(max-width:900px){
+    .intro-section, .about-section{
+        flex-direction:column;
+        padding:50px 20px;
+    }
+    .section-bubble{
+        justify-content:center;
+    }
+    .circle{ width:180px; height:180px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+<div class="nav-container">
+    <div class="nav-left">
+        <img src="https://i.imgur.com/nARlklA.png" alt="logo">
+    </div>
+    <div class="nav-right">
+        <a href="tel:+420704247780"><i class="fas fa-phone"></i> +420 704 247 780</a>
+        <a href="mailto:K2strechy@seznam.cz"><i class="fas fa-envelope"></i> K2strechy@seznam.cz</a>
+    </div>
+</div>
+</nav>
+
+<header>
+<div class="header-content">
+    <h1>Kvalitní střechy, na které se můžete spolehnout</h1>
+    <p> Profesionální střechy pro váš dům i firmu.<br>
+    Střecha chrání interiér před nepřízní počasí, zajišťuje tepelnou a zvukovou izolaci a výrazně ovlivňuje vzhled vašeho domu. </p>
+</div>
+</header>
+
+<!-- ÚVOD -->
+<section class="intro-section">
+    <div class="intro-text">
+        <h2>Profesionální realizace střech na klíč</h2>
+<p>Jsme tým zkušených řemeslníků, kteří se realizací a opravami střech zabývají už 15 let. Naše dlouholeté zkušenosti nám umožňují realizovat střechy precizně, efektivně s ohledem na každý detail.</p>
+
+<p>Nabízíme kompletní služby – od pokládky nových střech přes rekonstrukce a opravy, klempířské práce, montáž okapů a střešních oken až po drobné doplňky a pravidelnou údržbu.</p>
+
+<p>Naše práce je založena na zkušenostech, poctivém řemesle a férovém jednání. Každá střecha, kterou realizujeme, je výsledkem naší odbornosti a pečlivosti – víme, co funguje a co vydrží.</p>
+
+<p>Vaše střecha je pro nás víc než práce – je naší vizitkou.</p>
+    </div>
+    <div class="intro-image">
+        <img src="https://i.imgur.com/akYhOlM.jpeg" alt="střecha">
+    </div>
+</section>
+
+<!-- SEKCE S BUBLINAMI -->
+<section class="about-section">
+    <div class="section-text">
+        <h2>🏠 Klempířské práce</h2>
+        <p>Klempířské práce jsou nezbytnou součástí každé kvalitní střechy. Pečlivé klempířské detaily zvyšují životnost střechy, zajišťují účinný odvod vody a chrání objekt před zatékáním a povětrnostními vlivy.</p>
+        <p>Nabízíme zejména:</p>
+        <ul>
+            <li>instalaci okapových systémů a svodů</li>
+            <li>oplechování komínů, větracích otvorů a prostupů</li>
+            <li>oplechování střech, úžlabí, štítů a detailů</li>
+            <li>výrobu a montáž parapetů</li>
+            <li>montáž hromosvodů dle bezpečnostních norem</li>
+        </ul>
+    </div>
+    <div class="section-bubble" id="bubble-klempirske"></div>
+</section>
+
+<section class="about-section">
+    <div class="section-text">
+        <h2>🪚 Pokrývačské a tesařské práce</h2>
+        <p>Kvalitní střecha stojí na precizní pokrývačské i tesařské práci. Naši odborníci provádějí instalaci, opravy i údržbu střech všech typů s důrazem na dlouhou životnost a spolehlivost.</p>
+        <p>Pokrývačské práce zahrnují:</p>
+        <ul>
+            <li>pokládku nových střech s různými krytinami (plech, šindel, tašky, asfaltové pásy)</li>
+            <li>opravy poškozených krytin a detailů</li>
+            <li>pravidelnou údržbu a kontrolu střech</li>
+            <li>odstranění mechů, nečistot a drobné opravy</li>
+        </ul>
+        <p>Tesařské práce zahrnují:</p>
+        <ul>
+            <li>výrobu a montáž krovů</li>
+            <li>rámové konstrukce stěn, podlah a dalších prvků</li>
+            <li>venkovní konstrukce – pergoly, altány, terasy</li>
+            <li>pevné a přesné řešení dřevěných konstrukcí pro další vrstvy střechy</li>
+        </ul>
+    </div>
+    <div class="section-bubble" id="bubble-pokryvac"></div>
+</section>
+
+<section class="about-section">
+    <div class="section-text">
+        <h2>💧 Izolatérské práce</h2>
+        <p>Hydroizolace je klíčová pro ochranu střechy a celé konstrukce před vlhkostí, která může způsobit vážné problémy jako plísně, poškození konstrukce nebo zhoršení tepelné izolace.</p>
+        <p>Co nabízíme:</p>
+        <ul>
+            <li>hydroizolaci plochých střech s použitím PVC či EPDM fólií</li>
+            <li>podkladní hydroizolace pro šikmé střechy</li>
+            <li>izolace teras a balkonů pomocí moderních materiálů</li>
+            <li>Nadkrokevní izolace BAUDER PIR</li>
+        </ul>
+    </div>
+    <div class="section-bubble" id="bubble-izolate"></div>
+</section>
+
+<section class="about-section">
+    <div class="section-text">
+        <h2>🛠️ Údržba a servis střech</h2>
+        <p>Pravidelná údržba je často to, co rozhoduje o životech střechy a nákladech na budoucí opravy. I ta nejlepší střecha si časem zaslouží kontrolu a péči.</p>
+        <ul>
+            <li>celková kontrola stavu střechy</li>
+            <li>kontrola po nepřízni počasí (vítr, sníh, déšť)</li>
+            <li>čištění okapů a svodů</li>
+            <li>drobné opravy a prevence větších problémů</li>
+            <li>doporučení na další servisní kroky</li>
+        </ul>
+    </div>
+    <div class="section-bubble" id="bubble-servis"></div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <span class="nav prev" onclick="prevImage()">&#10094;</span>
+    <span class="nav next" onclick="nextImage()">&#10095;</span>
+    <img id="lightbox-img">
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">
+    <p>K2 Střechy</p>
+    <p>
+      <a href="tel:+420704247780"><i class="fas fa-phone"></i> +420 704 247 780</a> | 
+      <a href="mailto:K2strechy@seznam.cz"><i class="fas fa-envelope"></i> K2strechy@seznam.cz</a>
+    </p>
+    <p class="slogan">Vaše střecha, naše vizitka</p>
+  </div>
+  <div class="footer-logo">
+    <img src="https://i.imgur.com/nARlklA.png" alt="logo">
+  </div>
+</footer>
+
+<script>
+const galleries={
+    klempirske:{images:['https://i.imgur.com/SjIuIJK.jpeg']},
+    pokryvac:{images:['https://www.nejremeslnici.cz/assets/attachments2/83804/screen/novostavba-rd_ref_stav_RD_Jiloviste_big.jpg?1547738192']},
+    izolate:{images:['https://i.imgur.com/SjIuIJK.jpeg']},
+    servis:{images:['https://i.imgur.com/6NV74I8.jpeg']}
+};
+
+let currentGallery=[], currentIndex=0;
+
+function createBubble(divId, images, titleText){
+    const container=document.getElementById(divId);
+    const circle=document.createElement("div");
+    circle.className="circle";
+    circle.style.backgroundImage=`url(${images[0]})`;
+
+    const title=document.createElement("div");
+    title.className="circle-title";
+    title.innerText=titleText;
+
+    const gallery=document.createElement("div");
+    gallery.className="circle-gallery";
+
+    images.forEach((src,i)=>{
+        const img=document.createElement("img");
+        img.src=src;
+        img.onclick=(e)=>{
+            e.stopPropagation();
+            currentGallery=images;
+            currentIndex=i;
+            openLightbox(src);
+        };
+        gallery.appendChild(img);
+    });
+
+    circle.appendChild(title);
+    circle.appendChild(gallery);
+
+    circle.addEventListener("click",()=>{
+        // Zavře všechny ostatní bubliny
+        document.querySelectorAll(".circle").forEach(c=>{
+            if(c!==circle)c.classList.remove("open");
+        });
+        // Otevře tuto bublinu
+        circle.classList.toggle("open");
+
+        // Scroll tak, aby bublina byla ve středu obrazovky
+        const rect = circle.getBoundingClientRect();
+        const offset = rect.top + window.scrollY - (window.innerHeight / 2 - rect.height / 2);
+        window.scrollTo({top: offset, behavior: 'smooth'});
+    });
+
+    container.appendChild(circle);
+}
+
+// vytvoření bublin
+createBubble("bubble-klempirske", galleries.klempirske.images,"Klempířské práce");
+createBubble("bubble-pokryvac", galleries.pokryvac.images,"Pokrývačské práce");
+createBubble("bubble-izolate", galleries.izolate.images,"Izolatérské práce");
+createBubble("bubble-servis", galleries.servis.images,"Údržba a servis");
+
+// LIGHTBOX
+function openLightbox(src){
+    document.getElementById("lightbox-img").src=src;
+    document.getElementById("lightbox").style.display="flex";
+}
+function closeLightbox(){
+    document.getElementById("lightbox").style.display="none";
+}
+function prevImage(){
+    currentIndex = (currentIndex-1+currentGallery.length) % currentGallery.length;
+    document.getElementById("lightbox-img").src = currentGallery[currentIndex];
+}
+function nextImage(){
+    currentIndex = (currentIndex+1) % currentGallery.length;
+    document.getElementById("lightbox-img").src = currentGallery[currentIndex];
+}
+</script>
+</body>
+</html>
