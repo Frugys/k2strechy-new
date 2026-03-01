@@ -8,65 +8,98 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-
-/* ===== ZÁKLAD ===== */
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background:#f5f5f5;
+    background:#f4f4f4;
 }
 
 /* ===== HORNÍ LIŠTA ===== */
-.top-bar{
+.nav-top{
     background:#000;
     color:#fff;
-    padding:12px 20px;
-    text-align:center;
-    font-size:14px;
+    padding:15px 30px;
 }
 
-/* ===== SEKCE KRUHY ===== */
-.circle-section{
-    padding:80px 20px;
-    background:#ffffff;
-}
-
-.circle-container{
+.nav-container{
     max-width:1200px;
     margin:0 auto;
     display:flex;
-    justify-content:center;
-    gap:60px;
+    justify-content:space-between;
+    align-items:center;
     flex-wrap:wrap;
 }
 
-.circle{
-    width:220px;
-    text-align:center;
+.nav-container img{
+    height:55px;
 }
 
-.circle img{
-    width:200px;
-    height:200px;
-    border-radius:50%;
-    object-fit:cover;
-    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    margin-left:20px;
     transition:0.3s;
 }
 
-.circle img:hover{
-    transform:scale(1.08);
+.nav-links a:hover{
+    color:#06f;
 }
 
-.circle p{
-    margin-top:20px;
+/* ===== GALERIE (FB STYLE) ===== */
+.gallery-section{
+    padding:60px 20px;
+    background:#fff;
+}
+
+.gallery-container{
+    max-width:1200px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:30px;
+}
+
+.gallery-item{
+    position:relative;
+    cursor:pointer;
+    overflow:hidden;
+    border-radius:18px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+.gallery-item img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    transition:0.4s;
+}
+
+.gallery-item:hover{
+    transform:translateY(-8px);
+}
+
+.gallery-item:hover img{
+    transform:scale(1.05);
+}
+
+.gallery-item span{
+    position:absolute;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(0,0,0,0.6);
+    color:#fff;
+    padding:8px 15px;
+    border-radius:10px;
     font-weight:bold;
 }
 
-/* ===== O NÁS SEKCE ===== */
+/* ===== O NÁS ===== */
 .about-section{
     padding:100px 20px;
-    background:#e9e9e9;
+    background:#e8e8e8;
 }
 
 .about-wrapper{
@@ -74,13 +107,13 @@ body{
     margin:0 auto;
     display:flex;
     align-items:center;
-    gap:80px;
+    gap:70px;
     flex-wrap:wrap;
 }
 
 /* Fotka vlevo */
 .about-image{
-    flex:0 0 350px;
+    flex:0 0 320px;
 }
 
 .about-image img{
@@ -102,7 +135,7 @@ body{
 }
 
 .about-content h2{
-    font-size:36px;
+    font-size:38px;
     margin-bottom:20px;
 }
 
@@ -131,69 +164,87 @@ footer{
     background:#000;
     color:#fff;
     text-align:center;
-    padding:60px 20px;
+    padding:70px 20px;
+}
+
+footer img{
+    height:80px;
+    margin-bottom:15px;
+}
+
+footer a{
+    color:white;
+    font-weight:bold;
+    text-decoration:none;
+    margin:0 10px;
+    transition:0.3s;
+}
+
+footer a:hover{
+    color:#06f;
 }
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:900px){
-
     .about-wrapper{
         flex-direction:column;
         text-align:center;
     }
 
     .about-image{
-        flex:none;
         width:80%;
     }
-
-    .circle-container{
-        gap:40px;
-    }
-
 }
-
 </style>
 </head>
 <body>
 
-<!-- HORNÍ LIŠTA -->
-<div class="top-bar">
-    📞 +420 777 000 000 | ✉ info@k2strechy.cz
+<!-- ===== HORNÍ LIŠTA ===== -->
+<div class="nav-top">
+    <div class="nav-container">
+        <img src="https://i.imgur.com/nARlklA.png" alt="logo">
+        <div class="nav-links">
+            <a href="tel:+420704247780"><i class="fas fa-phone"></i> +420 704 247 780</a>
+            <a href="mailto:K2strechy@seznam.cz"><i class="fas fa-envelope"></i> K2strechy@seznam.cz</a>
+        </div>
+    </div>
 </div>
 
-<!-- SEKCE KRUHY -->
-<section class="circle-section">
-    <div class="circle-container">
-        <div class="circle">
-            <img src="https://i.imgur.com/b8t34Az.jpeg" alt="">
-            <p>Rekonstrukce střech</p>
+<!-- ===== GALERIE ===== -->
+<section class="gallery-section">
+    <div class="gallery-container">
+        <div class="gallery-item" onclick="location.href='galerie1.html'">
+            <img src="https://i.imgur.com/jSB97n0.jpeg">
+            <span>Klempířské práce</span>
         </div>
 
-        <div class="circle">
-            <img src="https://i.imgur.com/b8t34Az.jpeg" alt="">
-            <p>Novostavby</p>
+        <div class="gallery-item" onclick="location.href='galerie2.html'">
+            <img src="https://i.imgur.com/HjGGqDJ.jpeg">
+            <span>Pokrývačské práce</span>
         </div>
 
-        <div class="circle">
-            <img src="https://i.imgur.com/b8t34Az.jpeg" alt="">
-            <p>Izolace</p>
+        <div class="gallery-item" onclick="location.href='galerie3.html'">
+            <img src="https://i.imgur.com/Sm1bBuu.jpeg">
+            <span>Izolatérské práce</span>
+        </div>
+
+        <div class="gallery-item" onclick="location.href='galerie4.html'">
+            <img src="https://i.imgur.com/GXyOFKX.jpeg">
+            <span>Údržba a servis</span>
         </div>
     </div>
 </section>
 
-<!-- O NÁS -->
+<!-- ===== O NÁS ===== -->
 <section class="about-section">
     <div class="about-wrapper">
 
-        <!-- Fotka vlevo -->
         <div class="about-image">
             <a href="onas.html">
                 <img src="https://i.imgur.com/b8t34Az.jpeg" alt="O nás">
             </a>
         </div>
 
-        <!-- Text vpravo -->
         <div class="about-content">
             <h2>O nás</h2>
             <p>
@@ -205,16 +256,20 @@ footer{
                 Působíme po celé ČR a zakládáme si na profesionálním přístupu,
                 férovém jednání a dlouhodobé spolupráci.
             </p>
-
             <a href="onas.html" class="about-button">Více o nás</a>
         </div>
 
     </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ===== FOOTER ===== -->
 <footer>
-    © 2026 K2 Střechy | Všechna práva vyhrazena
+    <img src="https://i.imgur.com/nARlklA.png" alt="logo">
+    <p>
+        <a href="tel:+420704247780"><i class="fas fa-phone"></i> +420 704 247 780</a> |
+        <a href="mailto:K2strechy@seznam.cz"><i class="fas fa-envelope"></i> K2strechy@seznam.cz</a>
+    </p>
+    <p>© 2026 K2 Střechy | Všechna práva vyhrazena</p>
 </footer>
 
 </body>
