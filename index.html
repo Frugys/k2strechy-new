@@ -1,4 +1,4 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="cs">
 <head>
 <meta charset="UTF-8">
@@ -98,13 +98,14 @@ body{
 
 /* ===== MOBILNÍ SWIPE ===== */
 @media(max-width:900px){
-
     .gallery-container{
-        display:flex;
+        display:flex !important; 
         overflow-x:auto;
         scroll-snap-type:x mandatory;
+        -webkit-overflow-scrolling: touch; 
         gap:20px;
         padding-bottom:10px;
+        scroll-padding:20px; 
     }
 
     .gallery-container::-webkit-scrollbar{
@@ -112,10 +113,22 @@ body{
     }
 
     .gallery-item{
-        min-width:80%;
-        flex:0 0 auto;
+        flex:0 0 80%;  
         scroll-snap-align:center;
     }
+}
+
+/* ===== MEZI GALERIÍ A O NÁS ===== */
+.middle-text{
+    text-align:center;
+    padding:40px 20px;
+    background:#f5f5f5;
+}
+
+.middle-text h1{
+    font-size:32px;
+    color:#111;
+    margin:0;
 }
 
 /* ===== O NÁS ===== */
@@ -221,40 +234,38 @@ footer a:hover{
 <!-- ===== GALERIE ===== -->
 <section class="gallery-section">
     <div class="gallery-container">
-
         <div class="gallery-item" onclick="location.href='galerie1.html'">
             <img src="https://i.imgur.com/jSB97n0.jpeg">
             <span>Klempířské práce</span>
         </div>
-
         <div class="gallery-item" onclick="location.href='galerie2.html'">
             <img src="https://i.imgur.com/HjGGqDJ.jpeg">
             <span>Pokrývačské práce</span>
         </div>
-
         <div class="gallery-item" onclick="location.href='galerie3.html'">
             <img src="https://i.imgur.com/Sm1bBuu.jpeg">
             <span>Izolatérské práce</span>
         </div>
-
         <div class="gallery-item" onclick="location.href='galerie4.html'">
             <img src="https://i.imgur.com/GXyOFKX.jpeg">
             <span>Údržba a servis</span>
         </div>
-
     </div>
 </section>
+
+<!-- ===== MEZITITUL ===== -->
+<div class="middle-text">
+    <h1>K2 Střechy – Klempířské a pokrývačské práce</h1>
+</div>
 
 <!-- ===== O NÁS ===== -->
 <section class="about-section">
     <div class="about-wrapper">
-
         <div class="about-image">
             <a href="onas.html">
                 <img src="https://i.imgur.com/b8t34Az.jpeg" alt="O nás">
             </a>
         </div>
-
         <div class="about-content">
             <h2>O nás</h2>
             <p>
@@ -268,7 +279,6 @@ footer a:hover{
             </p>
             <a href="onas.html" class="about-button">Více o nás</a>
         </div>
-
     </div>
 </section>
 
